@@ -21,6 +21,7 @@ set smarttab
 set autoindent
 set copyindent
 set autoread
+set magic
 
 " Tab with spaces
 set tabstop=2
