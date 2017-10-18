@@ -18,6 +18,9 @@
 [commit]
   template = ~/dotfiles/.gitmessage
 
+[github]
+  user = anirudh-janga
+
 [alias]
   a = add --all
   c = commit
