@@ -5,7 +5,7 @@
  ~/.vim/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# TODO:  install fish
+# TODO: install fish
 
 # install fisher
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
@@ -15,3 +15,7 @@ fisher fnm
 fisher paths
 fisher z
 
+# TODO: install tmux 
+
+# Tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
