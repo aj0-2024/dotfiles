@@ -11,16 +11,16 @@ set expandtab
 set backspace=indent,eol,start
 set number relativenumber
 set showmatch
+
+" Optimize search
 set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+
 set gdefault
 set nolist
 set smarttab
-set autoindent
-set copyindent
-set autoread
 set magic
 
 " Tab with spaces
@@ -37,9 +37,6 @@ set foldcolumn=2
 " Syntax highlighting
 syntax enable
 
-" NERDTree customization
-map <C-n> :NERDTreeToggle<CR>
-
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -55,8 +52,6 @@ Plug 'christoomey/vim-system-copy'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'kien/ctrlp.vim'
 
 " Javascript VIM Plugins
@@ -66,6 +61,9 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'isruslan/vim-es6'
 Plug 'w0rp/ale'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+" Python VIM Plugins
+Plug 'klen/python-mode'
 
 " Vim Colorschemes
 Plug 'dracula/vim'
@@ -87,3 +85,12 @@ let g:jsx_ext_required = 0
 
 " Colorscheme is dracula
 color dracula
+
+" Customize Netrw - built-in file browser
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4 " Open file in horizontal split
+let g:netrw_altv = 1
+let g:netrw_winsize = 18 " Window size
+set autochdir
+map <C-n> :Lexplore<CR>
