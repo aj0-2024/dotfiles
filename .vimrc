@@ -9,7 +9,7 @@ set showmode
 set nowrap
 set expandtab
 set backspace=indent,eol,start
-set number
+set number relativenumber
 set showmatch
 set ignorecase
 set smartcase
@@ -65,6 +65,7 @@ Plug 'mxw/vim-jsx'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'isruslan/vim-es6'
 Plug 'w0rp/ale'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " Vim Colorschemes
 Plug 'dracula/vim'
