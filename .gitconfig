@@ -22,6 +22,7 @@
   user = anirudh-janga
 
 [alias]
+  s = status
   a = add --all
   c = commit
   d = difftool

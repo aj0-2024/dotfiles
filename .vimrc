@@ -31,7 +31,7 @@ set expandtab
 set shiftwidth=2
 
 " Code Folding
-set foldenable
+set nofoldenable
 set foldcolumn=2
 
 " Syntax highlighting
@@ -53,6 +53,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'kien/ctrlp.vim'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Javascript VIM Plugins
 Plug 'pangloss/vim-javascript'
@@ -65,6 +66,12 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Python VIM Plugins
 Plug 'klen/python-mode'
 
+" Elm VIM Plugins
+Plug 'ElmCast/elm-vim'
+let g:elm_format_autosave = 1
+let g:elm_format_fail_silently = 0
+let g:elm_setup_keybindings = 1
+
 " Vim Colorschemes
 Plug 'dracula/vim'
 
@@ -73,7 +80,7 @@ call plug#end()
 " ESC key remap
 let g:easyescape_chars = { "j": 1, "k": 1}
 
-" Disable sqap files
+" Disable swap files
 set noswapfile
 
 " Ale configuration - automatic formatting on save
