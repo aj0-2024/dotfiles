@@ -26,4 +26,4 @@
   a = add --all
   c = commit
   d = difftool
-
+  p = push 
