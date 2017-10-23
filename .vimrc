@@ -60,7 +60,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'kien/ctrlp.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-
+Plug 'dag/vim-fish'
+ 
 " Javascript VIM Plugins
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
