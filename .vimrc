@@ -69,6 +69,7 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'isruslan/vim-es6'
 Plug 'w0rp/ale'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'stephpy/vim-yaml'
 
 " Python VIM Plugins
 Plug 'klen/python-mode'
@@ -109,4 +110,5 @@ let g:netrw_winsize = 18 " Window size
 set autochdir
 map <C-n> :Lexplore<CR>
 
-
+" Salt Stack stuff - open .sls files with yaml syntax
+au BufRead,BufNewFile *.sls set filetype=yaml
