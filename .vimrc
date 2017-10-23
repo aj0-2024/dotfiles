@@ -37,7 +37,9 @@ set foldcolumn=2
 " Syntax highlighting
 syntax enable
 
+" -------------------
 " Leader commands  
+" -------------------
 let mapleader = ","
 
 " Save and quit
@@ -45,6 +47,8 @@ nnoremap <Leader>[ :wq<CR>
 
 " Git add and commit, is taken to the commit message 
 nnoremap <Leader>p :!git a; git c<CR>
+
+" -------------------
 
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
