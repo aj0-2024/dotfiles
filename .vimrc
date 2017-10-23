@@ -39,7 +39,7 @@ syntax enable
 
 " Leader commands  
 let mapleader = "\\"                           
-nnoremap <Leader>[ :wq<CR>
+nnoremap <Leader>q :wq<CR>
 nnoremap <Leader>p :!git a; git c<CR>
 nnoremap <Leader>r :source ~/.vimrc<CR>
 
