@@ -40,7 +40,7 @@ syntax enable
 " -------------------
 " Leader commands  
 " -------------------
-let mapleader = ","
+let mapleader = "\\"
 
 " Save and quit
 nnoremap <Leader>[ :wq<CR>
