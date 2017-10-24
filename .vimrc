@@ -1,4 +1,4 @@
-" Use only vim settings (instead of vi)
+
 set nocompatible
 
 " Plugins
@@ -39,9 +39,12 @@ syntax enable
 
 " Leader commands  
 let mapleader = "\\"                           
+nnoremap <Leader>s :w<CR>
 nnoremap <Leader>q :wq<CR>
 nnoremap <Leader>p :!git a; git c<CR>
-nnoremap <Leader>r :source ~/.vimrc<CR>
+nnoremap <Leader><C-r> :source ~/.vimrc<CR>
+" Substitute under the word where cursor is
+nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
 
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
@@ -60,6 +63,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'kien/ctrlp.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'scrooloose/nerdcommenter'
+
+" Fish shell plugins
 Plug 'dag/vim-fish'
  
 " Javascript VIM Plugins
@@ -72,6 +78,11 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " Python VIM Plugins
 Plug 'klen/python-mode'
+let g:pymode_python = 'python3'
+let g:pymode_rope_completion = 1
+let g:pymode_rope_complete_on_dot = 0
+
+nnoremap <Leader>pyl :PymodeLintAuto<CR>
 
 " Elm VIM Plugins
 Plug 'ElmCast/elm-vim'
