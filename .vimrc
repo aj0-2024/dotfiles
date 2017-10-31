@@ -123,3 +123,8 @@ map <C-n> :Lexplore<CR>
 
 " Salt Stack stuff - open .sls files with yaml syntax
 au BufRead,BufNewFile *.sls set filetype=yaml
+
+" Integration for grep
+function GrepFind(str)
+  execute "grep -rnw " . getcwd() . " -e " . a:str . " --exclude-dir={build, node_modules, public}" 
+endfunction
