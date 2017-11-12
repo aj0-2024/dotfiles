@@ -1,4 +1,3 @@
-
 set nocompatible
 
 " Plugins
@@ -49,9 +48,11 @@ nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_root_markers = ['marker.vim'] 
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/]\/(node_modules|git)$'
+  \ 'dir': '\v[\/](node_modules|git)$'
   \ }
+set wildignore +=*/node_modules/*
 
 " vim-plug setup
 call plug#begin('~/.vim/plugged')
@@ -64,6 +65,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kien/ctrlp.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
 
 " Fish shell plugins
 Plug 'dag/vim-fish'
@@ -76,6 +79,7 @@ Plug 'isruslan/vim-es6'
 Plug 'w0rp/ale'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'stephpy/vim-yaml'
+Plug 'mattn/emmet-vim'
 
 " Python VIM Plugins
 Plug 'klen/python-mode'
@@ -105,9 +109,11 @@ set noswapfile
 " Ale configuration - automatic formatting on save
 autocmd bufwritepost *.js silent !standard --fix %
 set autoread
+let g:ale_fix_on_save = 1
 
 " Enable vim-jsx on .js files also
 let g:jsx_ext_required = 0
+let g:xml_syntax_folding = 1
 
 " Colorscheme is dracula
 color dracula
@@ -119,12 +125,12 @@ let g:netrw_browse_split = 4 " Open file in horizontal split
 let g:netrw_altv = 1
 let g:netrw_winsize = 18 " Window size
 set autochdir
-map <C-n> :Lexplore<CR>
+map <C-n> :NERDTreeToggle<CR>
 
 " Salt Stack stuff - open .sls files with yaml syntax
 au BufRead,BufNewFile *.sls set filetype=yaml
 
 " Integration for grep
-function GrepFind(str)
+function! GrepFind(str)
   execute "grep -rnw " . getcwd() . " -e " . a:str . " --exclude-dir={build, node_modules, public}" 
 endfunction
