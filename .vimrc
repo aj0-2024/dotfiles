@@ -28,6 +28,7 @@ set expandtab
 
 " Indent with '>'
 set shiftwidth=2
+set autoindent
 
 " Code Folding
 set nofoldenable
@@ -44,6 +45,10 @@ nnoremap <Leader>p :!git a; git c<CR>
 nnoremap <Leader><C-r> :source ~/.vimrc<CR>
 " Substitute under the word where cursor is
 nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
+" set paste and no paste for removing autoindent during paste
+nnoremap <Leader>sp :set paste
+nnoremap <Leader>np :set nopaste
+
 
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
@@ -67,6 +72,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
+Plug 'tomasiser/vim-code-dark'
 
 " Fish shell plugins
 Plug 'dag/vim-fish'
@@ -116,7 +122,8 @@ let g:jsx_ext_required = 0
 let g:xml_syntax_folding = 1
 
 " Colorscheme is dracula
-color dracula
+colorscheme dracula
+let g:airline_theme = 'codedark'
 
 " Customize Netrw - built-in file browser
 let g:netrw_banner = 0
