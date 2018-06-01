@@ -1,5 +1,6 @@
 set nocompatible
 
+set colorcolumn=80
 " Plugins
 filetype plugin indent on
 
@@ -37,27 +38,30 @@ set foldcolumn=2
 " Syntax highlighting
 syntax enable
 
+" Paste toggle
+set pastetoggle=<F2>
+
 " Leader commands  
 let mapleader = "\\"                           
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>q :wq<CR>
-nnoremap <Leader>p :!git a; git c<CR>
 nnoremap <Leader><C-r> :source ~/.vimrc<CR>
 " Substitute under the word where cursor is
 nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
-" set paste and no paste for removing autoindent during paste
-nnoremap <Leader>sp :set paste
-nnoremap <Leader>np :set nopaste
-
 
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_root_markers = ['marker.vim'] 
+let g:ctrlp_root_markers = ['ctrl-p-marker.vim'] 
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/](node_modules|git)$'
+  \ 'dir': '\v[\/](node_modules|git|elm-stuff)$'
   \ }
-set wildignore +=*/node_modules/*
+set wildignore +=*/node_modules/*,*/elm-stuff*/
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Ctags
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " vim-plug setup
 call plug#begin('~/.vim/plugged')
@@ -83,9 +87,20 @@ Plug 'mxw/vim-jsx'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'isruslan/vim-es6'
 Plug 'w0rp/ale'
+" Plug 'vim-syntastic/syntastic'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'stephpy/vim-yaml'
 Plug 'mattn/emmet-vim'
+
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+let g:prettier#config#semi = 'false'
+
+" Typescript VIM Plugins
+Plug 'leafgarland/typescript-vim'
+Plug 'quramy/tsuquyomi'
 
 " Python VIM Plugins
 Plug 'klen/python-mode'
@@ -97,12 +112,41 @@ nnoremap <Leader>pyl :PymodeLintAuto<CR>
 
 " Elm VIM Plugins
 Plug 'ElmCast/elm-vim'
+let g:elm_jump_to_error = 1
+let g:elm_make_show_warnings = 1
+let g:elm_detailed_complete = 1
 let g:elm_format_autosave = 1
 let g:elm_format_fail_silently = 0
 let g:elm_setup_keybindings = 1
 
+" w0rp/Ale
+" Ale configuration - automatic formatting on save
+autocmd bufwritepost *.js silent !standard --fix %
+set autoread
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nnoremap <Leader>f :ElmFormat<CR>
+
+" syntastic elm recommendations
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
+
 " Vim Colorschemes
 Plug 'dracula/vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'ayu-theme/ayu-vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'jacoborus/tender.vim'
+Plug 'jdsimcoe/abstract.vim'
+
+" Time Tracking
+Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 
@@ -112,18 +156,13 @@ let g:easyescape_chars = { "j": 1, "k": 1}
 " Disable swap files
 set noswapfile
 
-" Ale configuration - automatic formatting on save
-autocmd bufwritepost *.js silent !standard --fix %
-set autoread
-let g:ale_fix_on_save = 1
-
 " Enable vim-jsx on .js files also
 let g:jsx_ext_required = 0
 let g:xml_syntax_folding = 1
 
 " Colorscheme is dracula
-colorscheme dracula
-let g:airline_theme = 'codedark'
+colorscheme abstract
+let g:airline_theme = 'abstract'
 
 " Customize Netrw - built-in file browser
 let g:netrw_banner = 0
@@ -141,3 +180,11 @@ au BufRead,BufNewFile *.sls set filetype=yaml
 function! GrepFind(str)
   execute "grep -rnw " . getcwd() . " -e " . a:str . " --exclude-dir={build, node_modules, public}" 
 endfunction
+
+" per project .vimrc files
+" set exrc
+" set secure
+set tags=./tags,tags;$HOME
+
+ 
+
