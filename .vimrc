@@ -1,6 +1,6 @@
 set nocompatible
 
-set colorcolumn=80
+set colorcolumn=100
 " Plugins
 filetype plugin indent on
 
@@ -43,11 +43,11 @@ set pastetoggle=<F2>
 
 " Leader commands  
 let mapleader = "\\"                           
-nnoremap <Leader>s :w<CR>
 nnoremap <Leader>q :wq<CR>
 nnoremap <Leader><C-r> :source ~/.vimrc<CR>
 " Substitute under the word where cursor is
 nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>s :w <bar> !elm-format --elm-version=0.19 --yes %:p<CR><CR>
 
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
@@ -115,7 +115,7 @@ Plug 'ElmCast/elm-vim'
 let g:elm_jump_to_error = 1
 let g:elm_make_show_warnings = 1
 let g:elm_detailed_complete = 1
-let g:elm_format_autosave = 1
+let g:elm_format_autosave = 0
 let g:elm_format_fail_silently = 0
 let g:elm_setup_keybindings = 1
 
@@ -161,7 +161,7 @@ let g:jsx_ext_required = 0
 let g:xml_syntax_folding = 1
 
 " Colorscheme is dracula
-colorscheme abstract
+colorscheme Benokai
 let g:airline_theme = 'abstract'
 
 " Customize Netrw - built-in file browser
