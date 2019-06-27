@@ -24,11 +24,11 @@ set smarttab
 set magic
 
 " Tab with spaces
-set tabstop=2
+set tabstop=4
 set expandtab
 
 " Indent with '>'
-set shiftwidth=2
+set shiftwidth=4
 set autoindent
 
 " Code Folding
@@ -48,6 +48,7 @@ nnoremap <Leader><C-r> :source ~/.vimrc<CR>
 " Substitute under the word where cursor is
 nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>s :w <bar> !elm-format --elm-version=0.19 --yes %:p<CR><CR>
+nnoremap <Leader>i :TsuImport<CR>
 
 " CtrlP Options
 let g:ctrlp_map = '<c-p>'
@@ -77,6 +78,10 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'tomasiser/vim-code-dark'
+Plug 'haishanh/night-owl.vim'
+
+" Graphql
+Plug 'jparise/vim-graphql'
 
 " Fish shell plugins
 Plug 'dag/vim-fish'
@@ -96,19 +101,12 @@ Plug 'mattn/emmet-vim'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
-let g:prettier#config#semi = 'false'
 
 " Typescript VIM Plugins
 Plug 'leafgarland/typescript-vim'
 Plug 'quramy/tsuquyomi'
 
 " Python VIM Plugins
-Plug 'klen/python-mode'
-let g:pymode_python = 'python3'
-let g:pymode_rope_completion = 1
-let g:pymode_rope_complete_on_dot = 0
-
-nnoremap <Leader>pyl :PymodeLintAuto<CR>
 
 " Elm VIM Plugins
 Plug 'ElmCast/elm-vim'
@@ -127,7 +125,14 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_typescript_tsserver_config_path = 'tsconfig.app.json'
 let g:airline#extensions#ale#enabled = 1
+let g:ale_fixers = {
+\   'typescript': ['prettier'],
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
+\   'html': ['prettier']
+\}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>f :ElmFormat<CR>
@@ -161,8 +166,17 @@ let g:jsx_ext_required = 0
 let g:xml_syntax_folding = 1
 
 " Colorscheme is dracula
-colorscheme Benokai
+colorscheme night-owl
 let g:airline_theme = 'abstract'
+
+" Term gui
+if (has("+termguicolors"))
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+
 
 " Customize Netrw - built-in file browser
 let g:netrw_banner = 0
@@ -185,6 +199,9 @@ endfunction
 " set exrc
 " set secure
 set tags=./tags,tags;$HOME
+
+" auto add closing brace
+inoremap { {<CR>}<Esc>ko
 
  
 

@@ -9,3 +9,7 @@ set -gx PATH /Users/Anirudh/.config/fnm/bin/ $PATH
 set -gx PATH /Users/Anirudh/.nvm/versions/node/v10.15.3/bin/ $PATH
 
 status --is-interactive; and source (rbenv init -|psub)
+
+set -x PYENV_ROOT $HOME/.pyenv
+set -x PATH $PYENV_ROOT/bin $PATH
+status --is-interactive; and . (pyenv init -|psub)
