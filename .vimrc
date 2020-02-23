@@ -47,7 +47,8 @@ nnoremap <Leader>q :wq<CR>
 nnoremap <Leader><C-r> :source ~/.vimrc<CR>
 " Substitute under the word where cursor is
 nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
-nnoremap <Leader>s :w <bar> !elm-format --elm-version=0.19 --yes %:p<CR><CR>
+" nnoremap <Leader>s :w <bar> !elm-format --elm-version=0.19 --yes %:p<CR><CR>
+nnoremap <Leader>s :w<CR>
 nnoremap <Leader>i :TsuImport<CR>
 
 " CtrlP Options
@@ -71,11 +72,26 @@ Plug 'zhou13/vim-easyescape'
 Plug 'christoomey/vim-system-copy'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Git plugins
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
 Plug 'kien/ctrlp.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdcommenter'
+
+" Netrw - built-in file browser
 Plug 'scrooloose/nerdtree'
+Plug 'xuyuanp/nerdtree-git-plugin'
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4 " Open file in horizontal split
+let g:netrw_altv = 1
+let g:netrw_winsize = 18 " Window size
+set autochdir
+map <C-n> :NERDTreeToggle<CR>
+
 Plug 'tpope/vim-surround'
 Plug 'tomasiser/vim-code-dark'
 Plug 'haishanh/night-owl.vim'
@@ -91,20 +107,13 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'isruslan/vim-es6'
-Plug 'w0rp/ale'
 " Plug 'vim-syntastic/syntastic'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'stephpy/vim-yaml'
 Plug 'mattn/emmet-vim'
 
-" post install (yarn install | npm install) then load plugin only for editing supported files
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
-
 " Typescript VIM Plugins
 Plug 'leafgarland/typescript-vim'
-Plug 'quramy/tsuquyomi'
 
 " Python VIM Plugins
 
@@ -119,12 +128,16 @@ let g:elm_setup_keybindings = 1
 
 " w0rp/Ale
 " Ale configuration - automatic formatting on save
+Plug 'w0rp/ale'
 autocmd bufwritepost *.js silent !standard --fix %
 set autoread
+let g:ale_linters_explicit = 0
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_set_highlights = 0
+let g:ale_sign_column_always = 1
 let g:ale_typescript_tsserver_config_path = 'tsconfig.app.json'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_fixers = {
@@ -143,7 +156,6 @@ let g:syntastic_auto_loc_list = 1
 let g:elm_syntastic_show_warnings = 1
 
 " Vim Colorschemes
-Plug 'dracula/vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'ayu-theme/ayu-vim'
 Plug 'NLKNguyen/papercolor-theme'
@@ -165,9 +177,9 @@ set noswapfile
 let g:jsx_ext_required = 0
 let g:xml_syntax_folding = 1
 
-" Colorscheme is dracula
+" Colorscheme 
 colorscheme night-owl
-let g:airline_theme = 'abstract'
+let g:airline_theme = 'dark'
 
 " Term gui
 if (has("+termguicolors"))
@@ -178,14 +190,6 @@ endif
 
 
 
-" Customize Netrw - built-in file browser
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4 " Open file in horizontal split
-let g:netrw_altv = 1
-let g:netrw_winsize = 18 " Window size
-set autochdir
-map <C-n> :NERDTreeToggle<CR>
 
 " Salt Stack stuff - open .sls files with yaml syntax
 au BufRead,BufNewFile *.sls set filetype=yaml
@@ -200,8 +204,21 @@ endfunction
 " set secure
 set tags=./tags,tags;$HOME
 
-" auto add closing brace
-inoremap { {<CR>}<Esc>ko
+" auto add closing
+inoremap { {}<Esc>i
+inoremap ( ()<Esc>i
+inoremap " ""<Esc>i
+inoremap ' ''<Esc>i
+inoremap [ []<Esc>i
 
- 
+
+" Resize panes
+nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" Move more easily
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 

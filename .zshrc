@@ -1,0 +1,11 @@
+plugins=(
+    git
+    blunder
+    dotenv
+    osx
+    rake
+    rbenv
+    ruby
+)
+ZSH_THEME="robbyrussell"
+DISABLE_UPDATE_PROMPT=true
