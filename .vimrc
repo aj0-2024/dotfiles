@@ -1,6 +1,6 @@
 set nocompatible
 
-set colorcolumn=100
+set colorcolumn=80
 " Plugins
 filetype plugin indent on
 
@@ -34,9 +34,6 @@ set autoindent
 " Code Folding
 set nofoldenable
 set foldcolumn=2
-
-" Syntax highlighting
-syntax enable
 
 " Paste toggle
 set pastetoggle=<F2>
@@ -204,13 +201,6 @@ endfunction
 " set secure
 set tags=./tags,tags;$HOME
 
-" auto add closing
-inoremap { {}<Esc>i
-inoremap ( ()<Esc>i
-inoremap " ""<Esc>i
-inoremap ' ''<Esc>i
-inoremap [ []<Esc>i
-
 
 " Resize panes
 nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
@@ -221,4 +211,27 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Only color comments
+set background=dark
+highlight clear
+if exists("syntax_on")
+    syntax reset
+endif
+
+let colors_name = "comments"
+
+" First set Normal to regular white on black text colors:
+hi Normal ctermfg=LightGray ctermbg=Black guifg=#dddddd	guibg=Black
+
+" Syntax highlighting (other color-groups using default, see :help group-name):
+hi Comment    cterm=NONE ctermfg=08
+hi Constant   cterm=NONE ctermfg=White
+hi Identifier cterm=NONE ctermfg=White
+hi Function   cterm=NONE ctermfg=White
+hi Statement  cterm=NONE ctermfg=White
+hi PreProc    cterm=NONE ctermfg=White
+hi Type	      cterm=NONE ctermfg=White
+hi Special    cterm=NONE ctermfg=White
+hi Delimiter  cterm=NONE ctermfg=White
 
