@@ -9,3 +9,7 @@ plugins=(
 )
 ZSH_THEME="robbyrussell"
 DISABLE_UPDATE_PROMPT=true
+
+# github
+alias gh="cd ~/github/"
+alias fun="tmuxinator start anirudh-fun"
