@@ -75,8 +75,12 @@ Plug 'tpope/vim-fugitive'
 " Check fzf docs for dependencies
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 set rtp+=/usr/local/opt/fzf
 nnoremap <C-p> :<C-u>FZF<CR> 
+
+Plug 'airblade/vim-rooter'
+let g:rooter_patterns = ['.git']
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
