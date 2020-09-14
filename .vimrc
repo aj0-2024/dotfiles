@@ -42,9 +42,9 @@ set pastetoggle=<F2>
 let mapleader = "\\"                           
 nnoremap <Leader>q :wq<CR>
 nnoremap <Leader><C-r> :source ~/.vimrc<CR>
+
 " Substitute under the word where cursor is
 nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
-" nnoremap <Leader>s :w <bar> !elm-format --elm-version=0.19 --yes %:p<CR><CR>
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>i :TsuImport<CR>
 
@@ -127,25 +127,28 @@ let g:elm_syntastic_show_warnings = 1
 " Async lite engine 
 set autoread
 Plug 'dense-analysis/ale'
-autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
-let g:ale_linters_explicit = 0
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier']
+\}
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 0
 let g:ale_sign_column_always = 1
-let g:ale_typescript_tsserver_config_path = 'tsconfig.app.json'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_fixers = {
 \   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier'],
 \   'javascript': ['prettier'],
 \   'css': ['prettier'],
 \   'html': ['prettier']
 \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nnoremap <Leader>f :ElmFormat<CR>
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 
 call plug#end()
 
@@ -201,4 +204,5 @@ hi PreProc    cterm=NONE ctermfg=White
 hi Type	      cterm=NONE ctermfg=White
 hi Special    cterm=NONE ctermfg=White
 hi Delimiter  cterm=NONE ctermfg=White
+hi Normal     cterm=NONE ctermbg=NONE
 
