@@ -11,6 +11,8 @@ set expandtab
 set backspace=indent,eol,start
 set number relativenumber
 set showmatch
+set encoding=UTF-8
+
 
 " Optimize search
 set ignorecase
@@ -30,6 +32,7 @@ set expandtab
 " Indent with '>'
 set shiftwidth=4
 set autoindent
+set smartindent
 
 " Code Folding
 set nofoldenable
@@ -55,6 +58,12 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " vim-plug setup
 call plug#begin('~/.vim/plugged')
+
+" Fancy
+Plug 'mhinz/vim-signify'
+Plug 'yggdroot/indentline'
+let g:indentLine_char_list = ['┆']
+let g:indentLine_enabled = 1
 
 " ESC key remap
 Plug 'zhou13/vim-easyescape'
@@ -91,14 +100,12 @@ Plug 'preservim/nerdcommenter'
 " File browsing
 Plug 'scrooloose/nerdtree'
 Plug 'xuyuanp/nerdtree-git-plugin'
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4 " Open file in horizontal split
-let g:netrw_altv = 1
-let g:netrw_winsize = 18 " Window size
+let g:NERDTreeWinSize=35
 set autochdir
 map <C-n> :NERDTreeToggle<CR>
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
+" Brackets
 Plug 'tpope/vim-surround'
 
 " Graphql
@@ -110,6 +117,16 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Yaml
 Plug 'stephpy/vim-yaml'
 
+" Markdown
+Plug 'plasticboy/vim-markdown'
+Plug 'shime/vim-livedown'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
+" Language check
+Plug 'rhysd/vim-grammarous'
+Plug 'dpelle/vim-languagetool'
+
 " Elm VIM Plugins
 Plug 'ElmCast/elm-vim'
 let g:elm_jump_to_error = 1
@@ -119,19 +136,9 @@ let g:elm_format_autosave = 0
 let g:elm_format_fail_silently = 0
 let g:elm_setup_keybindings = 1
 
-" syntastic Elm recommendations
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:elm_syntastic_show_warnings = 1
-
 " Async lite engine 
 set autoread
 Plug 'dense-analysis/ale'
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\   'typescript': ['prettier'],
-\   'typescriptreact': ['prettier']
-\}
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_completion_enabled = 1
@@ -139,19 +146,51 @@ let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 0
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
+let g:ale_linters = {
+\   'typescript': ['tsserver'],
+\   'typescriptreact': ['tsserver'],
+\   'elm': ['elm-ls'],
+\   'python': ['flake8', 'pylint']
+\}
 let g:ale_fixers = {
 \   'typescript': ['prettier'],
 \   'typescriptreact': ['prettier'],
 \   'javascript': ['prettier'],
 \   'css': ['prettier'],
-\   'html': ['prettier']
+\   'html': ['prettier'],
+\   'elm': ['elm-format'],
+\   'python': ['yapf']
 \}
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+
+" navigate to next errors quickly
+nmap <silent> <c-k> <Plug>(ale_previous_wrap)
+nmap <silent> <c-j> <Plug>(ale_next_wrap)
+
+" Test
+Plug 'vim-test/vim-test'
+
+" Python
+Plug 'vim-scripts/indentpython.vim'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
+" Colorscheme
+Plug 'haishanh/night-owl.vim'
+
+" TODO, FIXME
+Plug 'gilsondev/searchtasks.vim'
+
+" tags 
+Plug 'universal-ctags/ctags'
+Plug 'preservim/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
+" Comments
+Plug 'preservim/nerdcommenter'
+
+" custom plugins
+Plug '~/dotfiles/my-vim-plugins/elm-mdl-to-mdc'
 
 call plug#end()
-
 
 " Disable swap files
 set noswapfile
@@ -205,4 +244,5 @@ hi Type	      cterm=NONE ctermfg=White
 hi Special    cterm=NONE ctermfg=White
 hi Delimiter  cterm=NONE ctermfg=White
 hi Normal     cterm=NONE ctermbg=NONE
+
 
