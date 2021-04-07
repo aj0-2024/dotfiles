@@ -12,7 +12,6 @@ Button.$button_type
 """)
 
 
-
 def parse_content(content):
     config = {
         "button_type": "outlined",
@@ -36,6 +35,7 @@ def parse_content(content):
 
     return config
 
+
 def to_mdc_button():
 
     # set cursor to beginning of the button
@@ -48,11 +48,22 @@ def to_mdc_button():
     # clear content
     buffer = vim.current.buffer
     vim.command("norm c$")
-    del buffer[start:end+1]
+    del buffer[start:end + 1]
 
     new_content = template.substitute(config)
 
     buffer.append(new_content.splitlines(), start)
-    vim.command("ElmFormat")
 
 
+def mdc_button():
+    config = {
+        "button_type": "outlined",
+        "on_click": None,
+        "button_label": None
+    }
+
+    row, col = vim.current.window.cursor
+    buffer = vim.current.buffer
+
+    new_content = template.substitute(config)
+    buffer.append(new_content.splitlines(), row + 1)

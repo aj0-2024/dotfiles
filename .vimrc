@@ -1,6 +1,8 @@
 set nocompatible
 
-set colorcolumn=100
+" Ruler
+set colorcolumn=80
+
 " Plugins
 filetype plugin indent on
 
@@ -49,8 +51,6 @@ nnoremap <Leader><C-r> :source ~/.vimrc<CR>
 " Substitute under the word where cursor is
 nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>s :w<CR>
-nnoremap <Leader>i :TsuImport<CR>
-
 
 " Ctags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -59,11 +59,26 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " vim-plug setup
 call plug#begin('~/.vim/plugged')
 
+" Yank history
+Plug 'svermeulen/vim-yoink'
+
+" swap the most recent paste around in yank history
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+
+" Cycle thorugh history
+nmap [y <plug>(YoinkRotateBack)
+nmap ]y <plug>(YoinkRotateForward)
+
+" Swap the most recent paste around yank history
+nmap <c-t> <plug>(YoinkPostPasteSwapBack)
+nmap <c-y> <plug>(YoinkPostPasteSwapForward)
+
 " Fancy
 Plug 'mhinz/vim-signify'
 Plug 'yggdroot/indentline'
 let g:indentLine_char_list = ['┆']
-let g:indentLine_enabled = 1
+let g:indentLine_enabled = 0
 
 " ESC key remap
 Plug 'zhou13/vim-easyescape'
@@ -87,7 +102,9 @@ Plug 'junegunn/fzf.vim'
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 set rtp+=/usr/local/opt/fzf
 nnoremap <C-p> :<C-u>FZF<CR> 
+nnoremap <C-a> :Ag<CR>
 
+" Set root directory for a project
 Plug 'airblade/vim-rooter'
 let g:rooter_patterns = ['.git']
 
@@ -108,9 +125,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Brackets
 Plug 'tpope/vim-surround'
 
-" Graphql
-Plug 'jparise/vim-graphql'
-
 " Relative numbers
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
@@ -119,22 +133,11 @@ Plug 'stephpy/vim-yaml'
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
-Plug 'shime/vim-livedown'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " Language check
 Plug 'rhysd/vim-grammarous'
 Plug 'dpelle/vim-languagetool'
-
-" Elm VIM Plugins
-Plug 'ElmCast/elm-vim'
-let g:elm_jump_to_error = 1
-let g:elm_make_show_warnings = 1
-let g:elm_detailed_complete = 1
-let g:elm_format_autosave = 0
-let g:elm_format_fail_silently = 0
-let g:elm_setup_keybindings = 1
 
 " Async lite engine 
 set autoread
@@ -143,7 +146,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
-let g:ale_set_highlights = 0
+let g:ale_set_highlights = 1
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
@@ -159,22 +162,21 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'html': ['prettier'],
 \   'elm': ['elm-format'],
-\   'python': ['yapf']
+\   'python': ['yapf'],
+\   'markdown': ['prettier']
 \}
+nnoremap <silent> <Leader>f :ALEFix<CR>
 
 " navigate to next errors quickly
-nmap <silent> <c-k> <Plug>(ale_previous_wrap)
-nmap <silent> <c-j> <Plug>(ale_next_wrap)
+nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
+nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
+
 
 " Test
 Plug 'vim-test/vim-test'
 
 " Python
-Plug 'vim-scripts/indentpython.vim'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-
-" Colorscheme
-Plug 'haishanh/night-owl.vim'
 
 " TODO, FIXME
 Plug 'gilsondev/searchtasks.vim'
@@ -215,11 +217,6 @@ set tags=./tags,tags;$HOME
 nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
-" Move more easily
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " Only color comments
 set background=dark
@@ -245,4 +242,5 @@ hi Special    cterm=NONE ctermfg=White
 hi Delimiter  cterm=NONE ctermfg=White
 hi Normal     cterm=NONE ctermbg=NONE
 
-
+" Ruler
+highlight ColorColumn ctermbg=8
