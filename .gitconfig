@@ -26,4 +26,4 @@
   c = commit
   d = difftool
   p = push 
-  u = reset HEAD -- .
+  r = reset 
