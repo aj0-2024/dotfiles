@@ -71,7 +71,7 @@ nmap [y <plug>(YoinkRotateBack)
 nmap ]y <plug>(YoinkRotateForward)
 
 " Swap the most recent paste around yank history
-nmap <c-t> <plug>(YoinkPostPasteSwapBack)
+nmap <c-h> <plug>(YoinkPostPasteSwapBack)
 nmap <c-y> <plug>(YoinkPostPasteSwapForward)
 
 " Fancy
@@ -132,8 +132,9 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'stephpy/vim-yaml'
 
 " Markdown
-Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'mzlogin/vim-markdown-toc'
+
 
 " Language check
 Plug 'rhysd/vim-grammarous'
@@ -142,18 +143,20 @@ Plug 'dpelle/vim-languagetool'
 " Async lite engine 
 set autoread
 Plug 'dense-analysis/ale'
+let g:ale_enabled = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_completion_enabled = 1
-let g:ale_fix_on_save = 1
-let g:ale_set_highlights = 1
+let g:ale_fix_on_save = 0
+let g:ale_set_highlights = 0
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'typescript': ['tsserver'],
 \   'typescriptreact': ['tsserver'],
 \   'elm': ['elm-ls'],
-\   'python': ['flake8', 'pylint']
+\   'python': ['flake8', 'pylint'],
+\   'json': ['prettier']
 \}
 let g:ale_fixers = {
 \   'typescript': ['prettier'],
@@ -163,7 +166,9 @@ let g:ale_fixers = {
 \   'html': ['prettier'],
 \   'elm': ['elm-format'],
 \   'python': ['yapf'],
-\   'markdown': ['prettier']
+\   'markdown': ['prettier'],
+\   'json': ['prettier'],
+\   'go': ['gofmt', 'goimports']
 \}
 nnoremap <silent> <Leader>f :ALEFix<CR>
 
@@ -174,9 +179,6 @@ nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Test
 Plug 'vim-test/vim-test'
-
-" Python
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 " TODO, FIXME
 Plug 'gilsondev/searchtasks.vim'
@@ -217,30 +219,13 @@ set tags=./tags,tags;$HOME
 nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
-
-" Only color comments
-set background=dark
-highlight clear
-if exists("syntax_on")
-    syntax reset
-endif
-
-let colors_name = "comments"
-
-" First set Normal to regular white on black text colors:
-hi Normal ctermfg=LightGray ctermbg=Black guifg=#dddddd	guibg=Black
-
-" Syntax highlighting (other color-groups using default, see :help group-name):
-hi Comment    cterm=NONE ctermfg=08
-hi Constant   cterm=NONE ctermfg=White
-hi Identifier cterm=NONE ctermfg=White
-hi Function   cterm=NONE ctermfg=White
-hi Statement  cterm=NONE ctermfg=White
-hi PreProc    cterm=NONE ctermfg=White
-hi Type	      cterm=NONE ctermfg=White
-hi Special    cterm=NONE ctermfg=White
-hi Delimiter  cterm=NONE ctermfg=White
-hi Normal     cterm=NONE ctermbg=NONE
-
 " Ruler
 highlight ColorColumn ctermbg=8
+
+" change to underline
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+" Go lang 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
