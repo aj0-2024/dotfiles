@@ -1,13 +1,12 @@
-# dotfiles
-All the dotfile configurations
+# Installation
+1. Install brew
 
-
-### Shell
-1. Fish shell
-2. Fisher plugin manager
-3. Tmux for window management
-4. Tmux Plugin Manager
-
-### Editor
+## Terminal Applications
 1. Vim
-2. VimPlug Plugin Manager
+    1. VimPlug Plugin Manager
+2. Tmux
+    1. Tmuxinator
+3. Fzf
+4. Ag
+
+
