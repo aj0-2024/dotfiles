@@ -55,6 +55,7 @@ nnoremap <Leader>s :w<CR>
 " Ctags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+set tags=~/mytags
 
 " vim-plug setup
 call plug#begin('~/.vim/plugged')
@@ -88,8 +89,7 @@ let g:easyescape_chars = { "j": 1, "k": 1}
 Plug 'christoomey/vim-system-copy'
 
 " Custom bar at the bottom
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 
 " Git plugins
 Plug 'airblade/vim-gitgutter'
@@ -102,7 +102,7 @@ Plug 'junegunn/fzf.vim'
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 set rtp+=/usr/local/opt/fzf
 nnoremap <C-p> :<C-u>FZF<CR> 
-nnoremap <C-a> :Ag<CR>
+nnoremap <C-s> :Ag<CR>
 
 " Set root directory for a project
 Plug 'airblade/vim-rooter'
@@ -143,7 +143,7 @@ Plug 'dpelle/vim-languagetool'
 " Async lite engine 
 set autoread
 Plug 'dense-analysis/ale'
-let g:ale_enabled = 0
+let g:ale_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_completion_enabled = 1
@@ -156,7 +156,8 @@ let g:ale_linters = {
 \   'typescriptreact': ['tsserver'],
 \   'elm': ['elm-ls'],
 \   'python': ['flake8', 'pylint'],
-\   'json': ['prettier']
+\   'json': ['prettier'],
+\   'go': ['golangci-lint']
 \}
 let g:ale_fixers = {
 \   'typescript': ['prettier'],
@@ -168,7 +169,7 @@ let g:ale_fixers = {
 \   'python': ['yapf'],
 \   'markdown': ['prettier'],
 \   'json': ['prettier'],
-\   'go': ['gofmt', 'goimports']
+\   'go': ['golangci-lint']
 \}
 nnoremap <silent> <Leader>f :ALEFix<CR>
 
@@ -194,14 +195,35 @@ Plug 'preservim/nerdcommenter'
 " custom plugins
 Plug '~/dotfiles/my-vim-plugins/elm-mdl-to-mdc'
 
+" Go lang 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" colorscheme
+Plug 'haishanh/night-owl.vim'
+
+" spell check with camelcase
+Plug 'kamykn/spelunker.vim'
+
+" snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-l>"
+
+" Repeat last commands
+Plug 'tpope/vim-repeat'
+
 call plug#end()
+
+" disable the built in spell check
+set nospell
 
 " Disable swap files
 set noswapfile
 
 " Colorscheme 
-colorscheme desert
-let g:airline_theme = 'dark'
+colorscheme night-owl
+let g:lightline = {'colorscheme': 'nightowl'}
 
 " Term gui
 if (has("+termguicolors"))
@@ -225,7 +247,4 @@ highlight ColorColumn ctermbg=8
 " change to underline
 hi clear SpellBad
 hi SpellBad cterm=underline
-
-" Go lang 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
