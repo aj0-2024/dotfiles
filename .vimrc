@@ -188,6 +188,7 @@ Plug 'gilsondev/searchtasks.vim'
 Plug 'universal-ctags/ctags'
 Plug 'preservim/tagbar'
 nmap <F8> :TagbarToggle<CR>
+autocmd FileType go,python TagbarOpen
 
 " Comments
 Plug 'preservim/nerdcommenter'
