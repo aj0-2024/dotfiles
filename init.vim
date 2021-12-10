@@ -1,5 +1,3 @@
-set nocompatible
-
 " Ruler
 set colorcolumn=80
 
@@ -49,7 +47,7 @@ nnoremap <Leader>q :wq<CR>
 nnoremap <Leader><C-r> :source ~/.vimrc<CR>
 
 " Substitute under the word where cursor is
-nnoremap <Leader>rep :%s/\<<C-r><C-w>\>/
+nnoremap <Leadr>rep :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>s :w<CR>
 
 " Ctags
@@ -203,8 +201,8 @@ Plug 'haishanh/night-owl.vim'
 
 " spell check with camelcase
 Plug 'kamykn/spelunker.vim'
-set nospell
-let g:enable_spelunker_vim = 1
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'lewis6991/spellsitter.nvim'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -246,4 +244,3 @@ highlight ColorColumn ctermbg=8
 " change to underline
 hi clear SpellBad
 hi SpellBad cterm=underline
-
